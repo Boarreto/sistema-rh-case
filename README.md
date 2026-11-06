@@ -1,6 +1,6 @@
 # Sistema de RH para uma malharia
 
-Case de um sistema web que substituiu as planilhas do RH de uma malharia. Reúne colaboradores, férias, saúde ocupacional, documentos de pagamento e acesso do colaborador em um só lugar.
+Case de um sistema web que substituiu as planilhas do RH de uma malharia. Reúne colaboradores, férias, saúde ocupacional, documentos de pagamento, pagamentos de terceirizados e acesso do colaborador em um só lugar.
 
 > [!NOTE]
 > O código é privado porque o sistema é de uso interno. Este repositório mostra o problema, as decisões e os resultados técnicos.
@@ -27,7 +27,8 @@ A rotina mais sensível era a de holerites e folhas de ponto. Esses documentos c
 | Férias | Períodos aquisitivos, venda de até 1/3 e limite de períodos vencidos, conforme regras da CLT |
 | Anotações | Saldo anual de dias, avisos de renovação, sobras e calendário responsivo |
 | Saúde ocupacional | ASOs, prazos e atestados, com declarações em horas |
-| Documentos | Separação de lotes em PDF, com conferência página por página |
+| Documentos | Separação de lotes em PDF, com conferência página por página e aviso de mês divergente |
+| Terceirizados | Pagamentos mensais programados, avisos com antecedência escolhida pelo RH e histórico de pagamentos |
 | Portal do colaborador | Acesso individual a holerites e folhas de ponto pelo celular |
 | Acessos | Convite por e-mail, confirmação de CPF no primeiro acesso e perfis de permissão |
 | Auditoria | Registro de entradas e de abertura de documentos, visível só para administradores |
@@ -89,6 +90,7 @@ O sistema trata dados pessoais e dados de saúde. Por isso, as permissões foram
 - Os documentos ficam em armazenamento privado e abrem por links temporários.
 - Chaves administrativas ficam restritas ao servidor.
 - Logs de acesso têm prazo de retenção definido.
+- O backup é criptografado, e a restauração é testada em ambiente isolado.
 - Testes automatizados verificam regras de acesso entre perfis.
 
 ---
@@ -100,12 +102,13 @@ O sistema trata dados pessoais e dados de saúde. Por isso, as permissões foram
 - **Uso no celular:** tabelas, calendário e formulários foram ajustados para telas pequenas.
 - **Evolução segura do banco:** cada mudança passa por migração versionada, com ambiente local de dados fictícios.
 - **Falsos registros de auditoria:** links de documentos não usam prefetch, para evitar registrar uma leitura que ninguém fez.
+- **Pagamentos recorrentes sem agendador:** vencimentos e avisos são calculados a partir das regras cadastradas, inclusive em meses sem o dia 31.
 
 ---
 
 ## Qualidade
 
-- Mais de 150 testes automatizados.
+- Mais de 170 testes automatizados.
 - Cobertura acima de 90% nas regras de negócio e ações do servidor.
 - CI com testes, verificação de segredos e padrão de commits.
 - Testes de acesso simulando visitantes e colaboradores tentando abrir dados de outras pessoas.
