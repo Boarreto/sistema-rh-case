@@ -121,3 +121,5 @@ O sistema trata dados pessoais e dados de saúde. Por isso, as permissões foram
 - Automação sensível funciona melhor quando apoia a decisão humana.
 - Conversar com quem usa o sistema muda as regras mais do que qualquer especificação inicial.
 - Testes tornam mudanças em regras legais muito mais seguras.
+
+Desenvolvido por **[Vitor Boarreto](https://github.com/Boarreto)**.
